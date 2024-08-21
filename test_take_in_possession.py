@@ -32,18 +32,8 @@ def get_token():
 def get_hepsiburada_post_details(token):
     headers = {"Authorization": f"Bearer {token}"}
     get_posts_body = {
-<<<<<<< HEAD
-<<<<<<< HEAD
         "status": [5],
-        "limit": 1
-=======
-        "status": [3, 5, 9],
         "limit": 10
->>>>>>> master
-=======
-        "status": [3, 5, 9],
-        "limit": 10
->>>>>>> main/master
     }
     response = requests.post(GET_POSTS_URL, json=get_posts_body, headers=headers)
 
@@ -55,28 +45,10 @@ def get_hepsiburada_post_details(token):
     result = response_json.get("result", [])
     log_report(f"Posts alındı: {response_json}")
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    if not result:
-        log_report("Hepsiburada API için uygun post bulunamadı.")
-        raise Exception("Hepsiburada API için uygun post bulunamadı.")
-
-    post_details = result[0]
-    barcode = post_details.get("barcode")
-
-    if not barcode:
-        log_report("Barcode bilgisi bulunamadı.")
-        raise Exception("Barcode bilgisi bulunamadı.")
-
-    log_report(f"Filtrelenmiş Hepsiburada post detayları: {post_details}")
-    return post_details
-=======
-=======
->>>>>>> main/master
     hepsiburada_posts = [
         {"id": post.get("id"), "barcode": post.get("barcode")}
         for post in result
-        if post.get("dataEntranceType") == "Hepsiburada API" and post.get("status") == "5"
+        if post.get("dataEntranceType") == "Hepsiburada API" and post.get("status") == 5
     ]
 
     if not hepsiburada_posts:
@@ -85,10 +57,6 @@ def get_hepsiburada_post_details(token):
 
     log_report(f"Filtrelenmiş Hepsiburada post detayları: {hepsiburada_posts}")
     return hepsiburada_posts[0]  # İlk uygun olanı al
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> main/master
 
 def search_barcode(token, barcode):
     url = f"{BASE_URL}/flow/post-search-barcode-v2"
