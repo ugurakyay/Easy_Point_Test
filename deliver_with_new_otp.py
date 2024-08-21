@@ -1,7 +1,5 @@
-# deliver_with_new_otp.py
-
 import requests
-from config import BASE_URL, LOGIN_URL, GET_POSTS_URL, COMPLETE_ORDER_URL, REPORT_FILE_PATH, USERNAME, PASSWORD
+from config import BASE_URL, REPORT_FILE_PATH, USERNAME, PASSWORD
 from datetime import datetime
 
 
@@ -14,11 +12,12 @@ def log_report(message):
 
 def get_token():
     """Authenticate using the login service and retrieve a token."""
+    login_url = f"{BASE_URL}/login"
     login_data = {
         "username": USERNAME,
         "password": PASSWORD
     }
-    response = requests.post(LOGIN_URL, json=login_data)
+    response = requests.post(login_url, json=login_data)
 
     if response.status_code != 200:
         log_report(f"Login request failed: {response.status_code} - {response.text}")
@@ -39,11 +38,12 @@ def get_token():
 def get_hepsiburada_post_details(token):
     """Fetch post details with status '5' and filter by Hepsiburada API."""
     headers = {"Authorization": f"Bearer {token}"}
+    get_posts_url = f"{BASE_URL}/posts/get"
     get_posts_body = {
         "status": [5],
         "limit": 10
     }
-    response = requests.post(GET_POSTS_URL, json=get_posts_body, headers=headers)
+    response = requests.post(get_posts_url, json=get_posts_body, headers=headers)
 
     if response.status_code != 200:
         log_report(f"Failed to fetch posts: {response.status_code} - {response.text}")
@@ -80,7 +80,6 @@ def recreate_delivery_password(token, post_id):
     response_json = response.json()
     log_report(f"Recreate delivery password result: {response_json}")
 
-    # Corrected line: `result` is directly a string here
     otp = response_json.get("result", "")
     if not otp:
         log_report(f"Failed to retrieve OTP: {response_json}")

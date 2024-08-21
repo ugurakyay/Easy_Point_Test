@@ -1,16 +1,22 @@
 import requests
-from config import BASE_URL, LOGIN_URL, GET_POSTS_URL, REPORT_FILE_PATH, USERNAME, PASSWORD
+from config import BASE_URL, REPORT_FILE_PATH, USERNAME, PASSWORD
 from datetime import datetime
 import time
 
 
+# URL tanımlamaları
+LOGIN_URL = f"{BASE_URL}/login"
+GET_POSTS_URL = f"{BASE_URL}/posts/get"
+
 def log_report(message):
+    """Log a message to the report file with a timestamp."""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(REPORT_FILE_PATH, "a") as report_file:
         report_file.write(f"[{timestamp}] {message}\n")
 
 
 def get_token():
+    """Authenticate using the login service and retrieve a token."""
     login_data = {
         "username": USERNAME,  # config.py'den alınıyor
         "password": PASSWORD  # config.py'den alınıyor
@@ -34,10 +40,15 @@ def get_token():
 
 
 def get_hepsiburada_post_details(token):
+    """Retrieve Hepsiburada post details."""
     headers = {"Authorization": f"Bearer {token}"}
     get_posts_body = {
         "status": [5],
+<<<<<<< HEAD
         "limit": 10
+=======
+        "limit": 1
+>>>>>>> main
     }
 
     # Retry mekanizması eklenebilir
@@ -53,11 +64,17 @@ def get_hepsiburada_post_details(token):
         result = response_json.get("result", [])
         log_report(f"Posts alındı: {response_json}")
 
+<<<<<<< HEAD
         hepsiburada_posts = [
             {"id": post.get("id"), "barcode": post.get("barcode")}
             for post in result
             if post.get("dataEntranceType") == "Hepsiburada API" and post.get("status") == 5
         ]
+=======
+    if not result:
+        log_report("Hepsiburada API için uygun post bulunamadı.")
+        raise Exception("Hepsiburada API için uygun post bulunamadı.")
+>>>>>>> main
 
         if not hepsiburada_posts:
             log_report("Hepsiburada API için uygun post bulunamadı.")
@@ -67,10 +84,16 @@ def get_hepsiburada_post_details(token):
         log_report(f"Filtrelenmiş Hepsiburada post detayları: {hepsiburada_posts}")
         return hepsiburada_posts[0]  # İlk uygun olanı al
 
+<<<<<<< HEAD
     raise Exception("Hepsiburada API için uygun post bulunamadı.")
 
+=======
+    log_report(f"Filtrelenmiş Hepsiburada post detayları: {post_details}")
+    return post_details
+>>>>>>> main
 
 def search_barcode(token, barcode):
+    """Search for a barcode."""
     url = f"{BASE_URL}/flow/post-search-barcode-v2"
     headers = {"Authorization": f"Bearer {token}"}
     body = {
@@ -88,6 +111,7 @@ def search_barcode(token, barcode):
 
 
 def take_in_possession():
+    """Execute the take in possession scenario."""
     try:
         token = get_token()
         log_report(f"Alınan token: {token}")
@@ -104,3 +128,6 @@ def take_in_possession():
     except Exception as e:
         log_report(f"Take in possession test failed: {str(e)}")
         raise e
+
+if __name__ == "__main__":
+    take_in_possession()
