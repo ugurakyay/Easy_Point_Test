@@ -13,12 +13,11 @@ pipeline {
                 // Sanal ortam oluştur ve bağımlılıkları yükle
                 sh 'python3 -m venv .venv'
                 sh '. .venv/bin/activate && pip install -r requirements.txt'
-                sh '. .venv/bin/activate && pip install allure-pytest'  // Allure-Pytest kütüphanesini yükle
             }
         }
         stage('Run Tests') {
             steps {
-                // Testleri çalıştır ve Allure raporunu oluştur
+                // Testleri çalıştır ve Allure raporu oluştur
                 sh '. .venv/bin/activate && pytest --alluredir=allure-results --junitxml=report.xml'
             }
         }
@@ -27,9 +26,9 @@ pipeline {
     post {
         always {
             // Test sonuçlarını göster
-            junit '**/report.xml'  // JUnit XML raporunu doğru dizinle belirtin
+            junit 'report.xml'
 
-            // Allure raporlarını arşivle ve göster
+            // Allure raporlarını yayınla
             allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
         }
     }
