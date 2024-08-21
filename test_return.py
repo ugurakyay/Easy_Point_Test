@@ -1,16 +1,20 @@
-# test_return.py
 import requests
 from datetime import datetime
-from config import BASE_URL, LOGIN_URL, GET_POSTS_URL, REPORT_FILE_PATH, USERNAME, PASSWORD
+from config import BASE_URL, REPORT_FILE_PATH, USERNAME, PASSWORD
 
-POST_RETURN_COMPLETE_URL = f"{BASE_URL}/flow/post-return-complete"
+# URLs
+LOGIN_URL = f"{BASE_URL}/login"
+GET_POSTS_URL = f"{BASE_URL}/posts/get"
+RETURN_COMPLETE_URL = f"{BASE_URL}/flow/post-return-complete"
 
 def log_report(message):
+    """Log a message to the report file with a timestamp."""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(REPORT_FILE_PATH, "a") as report_file:
         report_file.write(f"[{timestamp}] {message}\n")
 
 def get_token():
+    """Authenticate using the login service and retrieve a token."""
     login_data = {
         "username": USERNAME,
         "password": PASSWORD
@@ -33,6 +37,7 @@ def get_token():
     return token
 
 def get_barcode(token):
+    """Fetch the barcode from a post with status 9."""
     headers = {"Authorization": f"Bearer {token}"}
     get_posts_body = {
         "status": [9],
@@ -61,11 +66,12 @@ def get_barcode(token):
     return barcode
 
 def complete_return(token, barcode):
+    """Complete the return process using the barcode."""
     headers = {"Authorization": f"Bearer {token}"}
     body = {
         "barcode": barcode
     }
-    response = requests.post(POST_RETURN_COMPLETE_URL, json=body, headers=headers)
+    response = requests.post(RETURN_COMPLETE_URL, json=body, headers=headers)
 
     if response.status_code != 200:
         log_report(f"Failed to complete return: {response.status_code} - {response.text}")
@@ -75,6 +81,7 @@ def complete_return(token, barcode):
     log_report(f"Return completion result: {response_json}")
 
 def execute_return_scenario():
+    """Execute the return scenario."""
     try:
         token = get_token()
         log_report(f"Retrieved token: {token}")

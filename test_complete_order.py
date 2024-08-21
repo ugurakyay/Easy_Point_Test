@@ -1,7 +1,7 @@
 import requests
 from datetime import datetime
 import json
-from config import BASE_URL, LOGIN_URL, GET_POSTS_URL, COMPLETE_ORDER_URL, USERNAME, PASSWORD, REPORT_FILE_PATH
+from config import BASE_URL, USERNAME, PASSWORD, REPORT_FILE_PATH
 
 def initialize_report():
     """Initialize the report file by clearing its content and writing the start time."""
@@ -16,12 +16,13 @@ def log_report(message):
 
 def get_token():
     """Authenticate using the login service and retrieve a token."""
+    login_url = f"{BASE_URL}/login"
     login_data = {
         "username": USERNAME,
         "password": PASSWORD
     }
     try:
-        response = requests.post(LOGIN_URL, json=login_data)
+        response = requests.post(login_url, json=login_data)
         response.raise_for_status()
     except requests.exceptions.RequestException as e:
         log_report(f"Login isteği başarısız oldu: {str(e)}")
@@ -71,11 +72,12 @@ def execute_order():
         log_report(f"Alınan token: {token}")
 
         # Adım 2: Postları al
+        get_posts_url = f"{BASE_URL}/posts/get"
         get_posts_body = {
             "status": [5],
             "limit": 3
         }
-        posts_response = call_service(token, GET_POSTS_URL, data=get_posts_body, method="POST")
+        posts_response = call_service(token, get_posts_url, data=get_posts_body, method="POST")
 
         result = posts_response.get("result", [])
         if not isinstance(result, list) or not result:
@@ -104,6 +106,7 @@ def execute_order():
             log_report(f"Post ID: {post_id}, Verification Code: {verification_code}")
 
             # Adım 4: Complete order isteği gönder
+            complete_order_url = f"{BASE_URL}/posts/complete"
             complete_order_body = {
                 "postID": post_id,
                 "otpType": "EasypointOTP",
@@ -112,7 +115,7 @@ def execute_order():
 
             log_report(f"Complete Order servisine istek atılıyor: {json.dumps(complete_order_body, indent=2)}")
 
-            final_response = call_service(token, COMPLETE_ORDER_URL, data=complete_order_body, method="POST")
+            final_response = call_service(token, complete_order_url, data=complete_order_body, method="POST")
 
             log_report(f"Son istekten dönen cevap: {json.dumps(final_response, indent=2)}")
             log_report(f"Complete servisinde kullanılan postID: {post_id}, otp: {verification_code}")

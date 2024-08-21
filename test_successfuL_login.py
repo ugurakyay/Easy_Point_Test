@@ -1,6 +1,8 @@
-# test_successfuL_login.py
 import requests
-from config import LOGIN_URL, USERNAME, PASSWORD
+from config import BASE_URL, USERNAME, PASSWORD
+
+# URL tanımlaması
+LOGIN_URL = f"{BASE_URL}/login"
 
 def successful_login():
     response = requests.post(LOGIN_URL, json={"username": USERNAME, "password": PASSWORD})
