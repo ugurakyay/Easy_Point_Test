@@ -5,7 +5,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 // Depoyu klonla
-                git 'https://github.com/ugurakyay/EasyPointApiAutomation.git'
+                git 'https://github.com/ugurakyay/Easy_Point_Test'
             }
         }
         stage('Install Dependencies') {
