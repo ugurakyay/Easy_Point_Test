@@ -1,16 +1,19 @@
 import requests
 from config import BASE_URL, LOGIN_URL, GET_POSTS_URL, REPORT_FILE_PATH, USERNAME, PASSWORD
 from datetime import datetime
+import time
+
 
 def log_report(message):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(REPORT_FILE_PATH, "a") as report_file:
         report_file.write(f"[{timestamp}] {message}\n")
 
+
 def get_token():
     login_data = {
         "username": USERNAME,  # config.py'den alınıyor
-        "password": PASSWORD   # config.py'den alınıyor
+        "password": PASSWORD  # config.py'den alınıyor
     }
     response = requests.post(LOGIN_URL, json=login_data)
 
@@ -29,34 +32,43 @@ def get_token():
     log_report(f"Login token alındı: {token}")
     return token
 
+
 def get_hepsiburada_post_details(token):
     headers = {"Authorization": f"Bearer {token}"}
     get_posts_body = {
         "status": [5],
         "limit": 10
     }
-    response = requests.post(GET_POSTS_URL, json=get_posts_body, headers=headers)
 
-    if response.status_code != 200:
-        log_report(f"Posts alma isteği başarısız oldu: {response.status_code} - {response.text}")
-        raise Exception(f"Posts alma isteği başarısız oldu: {response.status_code} - {response.text}")
+    # Retry mekanizması eklenebilir
+    max_retries = 3
+    for attempt in range(max_retries):
+        response = requests.post(GET_POSTS_URL, json=get_posts_body, headers=headers)
+        if response.status_code != 200:
+            log_report(f"Posts alma isteği başarısız oldu: {response.status_code} - {response.text}")
+            time.sleep(2)  # Biraz bekle ve tekrar dene
+            continue
 
-    response_json = response.json()
-    result = response_json.get("result", [])
-    log_report(f"Posts alındı: {response_json}")
+        response_json = response.json()
+        result = response_json.get("result", [])
+        log_report(f"Posts alındı: {response_json}")
 
-    hepsiburada_posts = [
-        {"id": post.get("id"), "barcode": post.get("barcode")}
-        for post in result
-        if post.get("dataEntranceType") == "Hepsiburada API" and post.get("status") == 5
-    ]
+        hepsiburada_posts = [
+            {"id": post.get("id"), "barcode": post.get("barcode")}
+            for post in result
+            if post.get("dataEntranceType") == "Hepsiburada API" and post.get("status") == 5
+        ]
 
-    if not hepsiburada_posts:
-        log_report("Hepsiburada API için uygun post bulunamadı.")
-        raise Exception("Hepsiburada API için uygun post bulunamadı.")
+        if not hepsiburada_posts:
+            log_report("Hepsiburada API için uygun post bulunamadı.")
+            time.sleep(2)  # Biraz bekle ve tekrar dene
+            continue
 
-    log_report(f"Filtrelenmiş Hepsiburada post detayları: {hepsiburada_posts}")
-    return hepsiburada_posts[0]  # İlk uygun olanı al
+        log_report(f"Filtrelenmiş Hepsiburada post detayları: {hepsiburada_posts}")
+        return hepsiburada_posts[0]  # İlk uygun olanı al
+
+    raise Exception("Hepsiburada API için uygun post bulunamadı.")
+
 
 def search_barcode(token, barcode):
     url = f"{BASE_URL}/flow/post-search-barcode-v2"
@@ -73,6 +85,7 @@ def search_barcode(token, barcode):
     response_json = response.json()
     log_report(f"Barcode arama sonucu: {response_json}")
     return response_json
+
 
 def take_in_possession():
     try:
