@@ -19,7 +19,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 // Testleri çalıştır ve Allure raporunu oluştur
-                sh '. .venv/bin/activate && pytest --alluredir=allure-results'
+                sh '. .venv/bin/activate && pytest --alluredir=allure-results --junitxml=report.xml'
             }
         }
     }
@@ -27,9 +27,9 @@ pipeline {
     post {
         always {
             // Test sonuçlarını göster
-            junit 'allure-results/*.xml'
+            junit '**/report.xml'  // JUnit XML raporunu doğru dizinle belirtin
 
-            // Allure raporlarını arşivle
+            // Allure raporlarını arşivle ve göster
             allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
         }
     }
