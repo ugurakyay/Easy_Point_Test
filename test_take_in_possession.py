@@ -7,6 +7,11 @@ import time
 LOGIN_URL = f"{BASE_URL}/login"
 GET_POSTS_URL = f"{BASE_URL}/posts/get"
 
+def initialize_report():
+    """Initialize the report file by clearing its contents."""
+    with open(REPORT_FILE_PATH, "w") as report_file:
+        report_file.write(f"Report initialized at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+
 def log_report(message):
     """Log a message to the report file with a timestamp."""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -41,7 +46,7 @@ def get_hepsiburada_post_details(token):
     headers = {"Authorization": f"Bearer {token}"}
     get_posts_body = {
         "status": [5],
-        "limit": 10
+        "limit": 2
     }
 
     # Retry mekanizması eklenebilir
@@ -57,17 +62,17 @@ def get_hepsiburada_post_details(token):
         result = response_json.get("result", [])
         log_report(f"Posts alındı: {response_json}")
 
-        hepsiburada_posts = [
-            {"id": post.get("id"), "barcode": post.get("barcode")}
-            for post in result
-            if post.get("dataEntranceType") == "Hepsiburada API" and post.get("status") == 5
-        ]
+        # Burada loglar ekliyoruz, hangi verilerin alındığını görmek için
+        for post in result:
+            log_report(f"İşlenen post: {post}")
+            if post.get("dataEntranceType") == "Hepsiburada API" and post.get("status") == '5':
+                hepsiburada_post = {"id": post.get("id"), "barcode": post.get("barcode")}
+                log_report(f"Hepsiburada postu bulundu: {hepsiburada_post}")
+                return hepsiburada_post
 
-        if hepsiburada_posts:
-            log_report(f"Filtrelenmiş Hepsiburada post detayları: {hepsiburada_posts}")
-            return hepsiburada_posts[0]  # İlk uygun olanı al
+        log_report(f"Deneme {attempt+1}: Uygun Hepsiburada postu bulunamadı.")
 
-    raise Exception("Hepsiburada API için uygun post bulunamadı.")
+    raise Exception("Hepsiburada API için uygun post bulunamadı. Sonuçlar: " + str(result))
 
 def search_barcode(token, barcode):
     """Search for a barcode."""
@@ -106,4 +111,5 @@ def take_in_possession():
         raise e
 
 if __name__ == "__main__":
+    initialize_report()
     take_in_possession()
