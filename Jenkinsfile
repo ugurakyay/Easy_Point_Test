@@ -30,6 +30,16 @@ pipeline {
 
             // Test sonuçlarını göster
             junit 'report.xml'
+
+            // HTML raporunu yayınla
+            publishHTML([
+                reportDir: '.',              // Raporun bulunduğu dizin
+                reportFiles: 'report.html',  // Rapor dosya adı
+                reportName: 'Test Report',   // Jenkins arayüzünde görünecek rapor adı
+                keepAll: true,               // Tüm raporları sakla
+                allowMissing: false,         // Eğer rapor bulunmazsa hata ver
+                alwaysLinkToLastBuild: true  // Son yapılan build'e raporu bağla
+            ])
         }
     }
 }
