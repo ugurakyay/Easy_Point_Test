@@ -17,8 +17,8 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                // Testleri çalıştır ve HTML raporu oluştur
-                sh '. .venv/bin/activate && pytest --html=report.html --self-contained-html'
+                // Testleri çalıştır ve HTML raporu ile birlikte XML raporu oluştur
+                sh '. .venv/bin/activate && pytest --html=report.html --self-contained-html --junitxml=report.xml'
             }
         }
     }
@@ -29,7 +29,7 @@ pipeline {
             archiveArtifacts artifacts: 'report.html', allowEmptyArchive: true
 
             // Test sonuçlarını göster
-            junit '**/report.xml'
+            junit 'report.xml'
         }
     }
 }
