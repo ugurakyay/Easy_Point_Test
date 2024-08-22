@@ -17,8 +17,25 @@ from test_Shipment_History import execute_shipment_history_scenario as _test_shi
 from test_update_profile import execute_update_profile_scenario as _test_update_profile_scenario
 from test_technical_support import execute_technical_support_scenario as _test_technical_support_scenario
 from test_user_profile import execute_user_profile_scenario as _test_user_profile_scenario
-from test_fetch_posts import execute_fetch_posts_scenario as _test_fetch_posts_scenario  # Import the fetch posts scenario
+from test_fetch_posts import execute_fetch_posts_scenario as _test_fetch_posts_scenario
 from test_get_posts_with_taken_name import execute_get_posts_scenario as _test_get_posts_scenario
+
+# Import negative test modules
+from test_invalid_campaign import (
+    test_campaign_with_invalid_token as _test_invalid_campaign_with_invalid_token,
+    test_campaign_with_empty_token as _test_invalid_campaign_with_empty_token,
+    test_campaign_with_invalid_campaign_id as _test_invalid_campaign_with_invalid_campaign_id,
+)
+from test_invalid_complete_order import (
+    test_complete_order_with_invalid_otp as _test_invalid_complete_order_with_invalid_otp,
+    test_complete_order_with_empty_otp as _test_invalid_complete_order_with_empty_otp,
+    test_complete_order_with_invalid_post_id as _test_invalid_complete_order_with_invalid_post_id,
+)
+from test_invalid_fetch_posts import (
+    test_fetch_posts_with_invalid_token as _test_invalid_fetch_posts_with_invalid_token,
+    test_fetch_posts_with_empty_token as _test_invalid_fetch_posts_with_empty_token,
+    test_fetch_posts_with_invalid_parameters as _test_invalid_fetch_posts_with_invalid_parameters,
+)
 
 @pytest.fixture(scope="session", autouse=True)
 def initialize_report():
@@ -159,3 +176,87 @@ def test_get_posts_scenario(log_report):
     except Exception as e:
         log_report(f"Get Posts with takenName test failed: {str(e)}")
         pytest.fail(f"Get Posts with takenName test failed: {str(e)}")
+
+
+# Negative tests
+
+@pytest.mark.order(17)
+def test_invalid_campaign_with_invalid_token_scenario(log_report):
+    try:
+        _test_invalid_campaign_with_invalid_token()
+        log_report("Invalid Campaign with Invalid Token scenario completed.")
+    except Exception as e:
+        log_report(f"Invalid Campaign with Invalid Token test failed: {str(e)}")
+        pytest.fail(f"Invalid Campaign with Invalid Token test failed: {str(e)}")
+
+@pytest.mark.order(18)
+def test_invalid_campaign_with_empty_token_scenario(log_report):
+    try:
+        _test_invalid_campaign_with_empty_token()
+        log_report("Invalid Campaign with Empty Token scenario completed.")
+    except Exception as e:
+        log_report(f"Invalid Campaign with Empty Token test failed: {str(e)}")
+        pytest.fail(f"Invalid Campaign with Empty Token test failed: {str(e)}")
+
+@pytest.mark.order(19)
+def test_invalid_campaign_with_invalid_campaign_id_scenario(log_report):
+    try:
+        _test_invalid_campaign_with_invalid_campaign_id()
+        log_report("Invalid Campaign with Invalid Campaign ID scenario completed.")
+    except Exception as e:
+        log_report(f"Invalid Campaign with Invalid Campaign ID test failed: {str(e)}")
+        pytest.fail(f"Invalid Campaign with Invalid Campaign ID test failed: {str(e)}")
+
+@pytest.mark.order(20)
+def test_invalid_complete_order_with_invalid_otp_scenario(log_report):
+    try:
+        _test_invalid_complete_order_with_invalid_otp()
+        log_report("Invalid Complete Order with Invalid OTP scenario completed.")
+    except Exception as e:
+        log_report(f"Invalid Complete Order with Invalid OTP test failed: {str(e)}")
+        pytest.fail(f"Invalid Complete Order with Invalid OTP test failed: {str(e)}")
+
+@pytest.mark.order(21)
+def test_invalid_complete_order_with_empty_otp_scenario(log_report):
+    try:
+        _test_invalid_complete_order_with_empty_otp()
+        log_report("Invalid Complete Order with Empty OTP scenario completed.")
+    except Exception as e:
+        log_report(f"Invalid Complete Order with Empty OTP test failed: {str(e)}")
+        pytest.fail(f"Invalid Complete Order with Empty OTP test failed: {str(e)}")
+
+@pytest.mark.order(22)
+def test_invalid_complete_order_with_invalid_post_id_scenario(log_report):
+    try:
+        _test_invalid_complete_order_with_invalid_post_id()
+        log_report("Invalid Complete Order with Invalid Post ID scenario completed.")
+    except Exception as e:
+        log_report(f"Invalid Complete Order with Invalid Post ID test failed: {str(e)}")
+        pytest.fail(f"Invalid Complete Order with Invalid Post ID test failed: {str(e)}")
+
+@pytest.mark.order(23)
+def test_invalid_fetch_posts_with_invalid_token_scenario(log_report):
+    try:
+        _test_invalid_fetch_posts_with_invalid_token()
+        log_report("Invalid Fetch Posts with Invalid Token scenario completed.")
+    except Exception as e:
+        log_report(f"Invalid Fetch Posts with Invalid Token test failed: {str(e)}")
+        pytest.fail(f"Invalid Fetch Posts with Invalid Token test failed: {str(e)}")
+
+@pytest.mark.order(24)
+def test_invalid_fetch_posts_with_empty_token_scenario(log_report):
+    try:
+        _test_invalid_fetch_posts_with_empty_token()
+        log_report("Invalid Fetch Posts with Empty Token scenario completed.")
+    except Exception as e:
+        log_report(f"Invalid Fetch Posts with Empty Token test failed: {str(e)}")
+        pytest.fail(f"Invalid Fetch Posts with Empty Token test failed: {str(e)}")
+
+@pytest.mark.order(25)
+def test_invalid_fetch_posts_with_invalid_parameters_scenario(log_report):
+    try:
+        _test_invalid_fetch_posts_with_invalid_parameters()
+        log_report("Invalid Fetch Posts with Invalid Parameters scenario completed.")
+    except Exception as e:
+        log_report(f"Invalid Fetch Posts with Invalid Parameters test failed: {str(e)}")
+        pytest.fail(f"Invalid Fetch Posts with Invalid Parameters test failed: {str(e)}")
