@@ -1,6 +1,6 @@
 import pytest
-import allure
 from datetime import datetime
+import allure
 from conftest import REPORT_FILE_PATH
 
 # Import all modules
@@ -59,7 +59,7 @@ def test_successful_login_scenario():
 
 @pytest.mark.order(2)
 @allure.feature("Login")
-@allure.story("Wrong Password Login")
+@allure.story("Unsuccessful Login")
 def test_wrong_password_login_scenario():
     log_report("2. Wrong password login test starts.")
     _test_wrong_password_login()
@@ -67,7 +67,7 @@ def test_wrong_password_login_scenario():
 
 @pytest.mark.order(3)
 @allure.feature("Login")
-@allure.story("Empty Username Login")
+@allure.story("Unsuccessful Login")
 def test_empty_username_login_scenario():
     log_report("3. Empty username login test starts.")
     _test_empty_username_login()
@@ -75,7 +75,7 @@ def test_empty_username_login_scenario():
 
 @pytest.mark.order(4)
 @allure.feature("Login")
-@allure.story("Empty Password Login")
+@allure.story("Unsuccessful Login")
 def test_empty_password_login_scenario():
     log_report("4. Empty password login test starts.")
     _test_empty_password_login()
@@ -83,7 +83,7 @@ def test_empty_password_login_scenario():
 
 @pytest.mark.order(5)
 @allure.feature("Login")
-@allure.story("Empty Username and Password Login")
+@allure.story("Unsuccessful Login")
 def test_empty_username_password_login_scenario():
     log_report("5. Empty username and password login test starts.")
     _test_empty_username_password_login()
@@ -99,6 +99,7 @@ def test_complete_order_scenario():
         log_report("6. Complete Order scenario completed successfully.")
     except Exception as e:
         log_report(f"6. Complete Order test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"6. Complete Order test failed: {str(e)}")
 
 @pytest.mark.order(7)
@@ -111,11 +112,12 @@ def test_take_in_possession_scenario():
         log_report("7. Take in possession scenario completed successfully.")
     except Exception as e:
         log_report(f"7. Take in possession test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"7. Take in possession test failed: {str(e)}")
 
 @pytest.mark.order(8)
 @allure.feature("Order")
-@allure.story("Deliver with New OTP")
+@allure.story("Deliver with OTP")
 def test_deliver_with_new_otp_scenario():
     log_report("8. Deliver with new OTP scenario starts.")
     try:
@@ -123,11 +125,12 @@ def test_deliver_with_new_otp_scenario():
         log_report("8. Deliver with new OTP scenario completed successfully.")
     except Exception as e:
         log_report(f"8. Deliver with new OTP test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"8. Deliver with new OTP test failed: {str(e)}")
 
 @pytest.mark.order(9)
 @allure.feature("Order")
-@allure.story("Return Order")
+@allure.story("Return")
 def test_return_scenario():
     log_report("9. Return scenario starts.")
     try:
@@ -135,11 +138,12 @@ def test_return_scenario():
         log_report("9. Return scenario completed successfully.")
     except Exception as e:
         log_report(f"9. Return test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"9. Return test failed: {str(e)}")
 
 @pytest.mark.order(10)
 @allure.feature("Campaign")
-@allure.story("Campaign")
+@allure.story("Retrieve Campaign")
 def test_campaign_scenario():
     log_report("10. Campaign scenario starts.")
     try:
@@ -147,6 +151,7 @@ def test_campaign_scenario():
         log_report("10. Campaign scenario completed successfully.")
     except Exception as e:
         log_report(f"10. Campaign test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"10. Campaign test failed: {str(e)}")
 
 @pytest.mark.order(11)
@@ -159,6 +164,7 @@ def test_shipment_history_scenario():
         log_report("11. Shipment History scenario completed successfully.")
     except Exception as e:
         log_report(f"11. Shipment History test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"11. Shipment History test failed: {str(e)}")
 
 @pytest.mark.order(12)
@@ -171,6 +177,7 @@ def test_update_profile_scenario():
         log_report("12. Update Profile scenario completed successfully.")
     except Exception as e:
         log_report(f"12. Update Profile test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"12. Update Profile test failed: {str(e)}")
 
 @pytest.mark.order(13)
@@ -183,6 +190,7 @@ def test_view_profile_scenario():
         log_report("13. View Profile scenario completed successfully.")
     except Exception as e:
         log_report(f"13. View Profile test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"13. View Profile test failed: {str(e)}")
 
 @pytest.mark.order(14)
@@ -195,6 +203,7 @@ def test_technical_support_scenario():
         log_report("14. Technical Support scenario completed successfully.")
     except Exception as e:
         log_report(f"14. Technical Support test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"14. Technical Support test failed: {str(e)}")
 
 @pytest.mark.order(15)
@@ -207,11 +216,12 @@ def test_fetch_posts_scenario():
         log_report("15. Fetch Posts scenario completed successfully.")
     except Exception as e:
         log_report(f"15. Fetch Posts test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"15. Fetch Posts test failed: {str(e)}")
 
 @pytest.mark.order(16)
 @allure.feature("Posts")
-@allure.story("Get Posts with Taken Name")
+@allure.story("Get Posts with takenName")
 def test_get_posts_scenario():
     log_report("16. Get Posts with takenName scenario starts.")
     try:
@@ -219,6 +229,7 @@ def test_get_posts_scenario():
         log_report("16. Get Posts with takenName scenario completed successfully.")
     except Exception as e:
         log_report(f"16. Get Posts with takenName test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"16. Get Posts with takenName test failed: {str(e)}")
 
 
@@ -226,7 +237,8 @@ def test_get_posts_scenario():
 
 @pytest.mark.order(17)
 @allure.feature("Campaign")
-@allure.story("Invalid Campaign with Invalid Token")
+@allure.story("Invalid Campaign")
+@allure.label("category", "negative")
 def test_invalid_campaign_with_invalid_token_scenario():
     log_report("17. Invalid Campaign with Invalid Token scenario starts.")
     try:
@@ -234,11 +246,13 @@ def test_invalid_campaign_with_invalid_token_scenario():
         log_report("17. Invalid Campaign with Invalid Token scenario completed.")
     except Exception as e:
         log_report(f"17. Invalid Campaign with Invalid Token test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"17. Invalid Campaign with Invalid Token test failed: {str(e)}")
 
 @pytest.mark.order(18)
 @allure.feature("Campaign")
-@allure.story("Invalid Campaign with Empty Token")
+@allure.story("Invalid Campaign")
+@allure.label("category", "negative")
 def test_invalid_campaign_with_empty_token_scenario():
     log_report("18. Invalid Campaign with Empty Token scenario starts.")
     try:
@@ -246,11 +260,13 @@ def test_invalid_campaign_with_empty_token_scenario():
         log_report("18. Invalid Campaign with Empty Token scenario completed.")
     except Exception as e:
         log_report(f"18. Invalid Campaign with Empty Token test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"18. Invalid Campaign with Empty Token test failed: {str(e)}")
 
 @pytest.mark.order(19)
 @allure.feature("Campaign")
-@allure.story("Invalid Campaign with Invalid Campaign ID")
+@allure.story("Invalid Campaign")
+@allure.label("category", "negative")
 def test_invalid_campaign_with_invalid_campaign_id_scenario():
     log_report("19. Invalid Campaign with Invalid Campaign ID scenario starts.")
     try:
@@ -258,11 +274,13 @@ def test_invalid_campaign_with_invalid_campaign_id_scenario():
         log_report("19. Invalid Campaign with Invalid Campaign ID scenario completed.")
     except Exception as e:
         log_report(f"19. Invalid Campaign with Invalid Campaign ID test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"19. Invalid Campaign with Invalid Campaign ID test failed: {str(e)}")
 
 @pytest.mark.order(20)
 @allure.feature("Order")
-@allure.story("Invalid Complete Order with Invalid OTP")
+@allure.story("Invalid Complete Order")
+@allure.label("category", "negative")
 def test_invalid_complete_order_with_invalid_otp_scenario():
     log_report("20. Invalid Complete Order with Invalid OTP scenario starts.")
     try:
@@ -270,11 +288,13 @@ def test_invalid_complete_order_with_invalid_otp_scenario():
         log_report("20. Invalid Complete Order with Invalid OTP scenario completed.")
     except Exception as e:
         log_report(f"20. Invalid Complete Order with Invalid OTP test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"20. Invalid Complete Order with Invalid OTP test failed: {str(e)}")
 
 @pytest.mark.order(21)
 @allure.feature("Order")
-@allure.story("Invalid Complete Order with Empty OTP")
+@allure.story("Invalid Complete Order")
+@allure.label("category", "negative")
 def test_invalid_complete_order_with_empty_otp_scenario():
     log_report("21. Invalid Complete Order with Empty OTP scenario starts.")
     try:
@@ -282,11 +302,13 @@ def test_invalid_complete_order_with_empty_otp_scenario():
         log_report("21. Invalid Complete Order with Empty OTP scenario completed.")
     except Exception as e:
         log_report(f"21. Invalid Complete Order with Empty OTP test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"21. Invalid Complete Order with Empty OTP test failed: {str(e)}")
 
 @pytest.mark.order(22)
 @allure.feature("Order")
-@allure.story("Invalid Complete Order with Invalid Post ID")
+@allure.story("Invalid Complete Order")
+@allure.label("category", "negative")
 def test_invalid_complete_order_with_invalid_post_id_scenario():
     log_report("22. Invalid Complete Order with Invalid Post ID scenario starts.")
     try:
@@ -294,11 +316,13 @@ def test_invalid_complete_order_with_invalid_post_id_scenario():
         log_report("22. Invalid Complete Order with Invalid Post ID scenario completed.")
     except Exception as e:
         log_report(f"22. Invalid Complete Order with Invalid Post ID test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"22. Invalid Complete Order with Invalid Post ID test failed: {str(e)}")
 
 @pytest.mark.order(23)
 @allure.feature("Posts")
-@allure.story("Invalid Fetch Posts with Invalid Token")
+@allure.story("Invalid Fetch Posts")
+@allure.label("category", "negative")
 def test_invalid_fetch_posts_with_invalid_token_scenario():
     log_report("23. Invalid Fetch Posts with Invalid Token scenario starts.")
     try:
@@ -306,11 +330,13 @@ def test_invalid_fetch_posts_with_invalid_token_scenario():
         log_report("23. Invalid Fetch Posts with Invalid Token scenario completed.")
     except Exception as e:
         log_report(f"23. Invalid Fetch Posts with Invalid Token test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"23. Invalid Fetch Posts with Invalid Token test failed: {str(e)}")
 
 @pytest.mark.order(24)
 @allure.feature("Posts")
-@allure.story("Invalid Fetch Posts with Empty Token")
+@allure.story("Invalid Fetch Posts")
+@allure.label("category", "negative")
 def test_invalid_fetch_posts_with_empty_token_scenario():
     log_report("24. Invalid Fetch Posts with Empty Token scenario starts.")
     try:
@@ -318,11 +344,13 @@ def test_invalid_fetch_posts_with_empty_token_scenario():
         log_report("24. Invalid Fetch Posts with Empty Token scenario completed.")
     except Exception as e:
         log_report(f"24. Invalid Fetch Posts with Empty Token test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"24. Invalid Fetch Posts with Empty Token test failed: {str(e)}")
 
 @pytest.mark.order(25)
 @allure.feature("Posts")
-@allure.story("Invalid Fetch Posts with Invalid Parameters")
+@allure.story("Invalid Fetch Posts")
+@allure.label("category", "negative")
 def test_invalid_fetch_posts_with_invalid_parameters_scenario():
     log_report("25. Invalid Fetch Posts with Invalid Parameters scenario starts.")
     try:
@@ -330,8 +358,8 @@ def test_invalid_fetch_posts_with_invalid_parameters_scenario():
         log_report("25. Invalid Fetch Posts with Invalid Parameters scenario completed.")
     except Exception as e:
         log_report(f"25. Invalid Fetch Posts with Invalid Parameters test failed: {str(e)}")
+        allure.attach(str(e), name="Exception", attachment_type=allure.attachment_type.TEXT)
         pytest.fail(f"25. Invalid Fetch Posts with Invalid Parameters test failed: {str(e)}")
-
 
 @pytest.hookimpl(tryfirst=True)
 def pytest_runtest_makereport(item, call):
