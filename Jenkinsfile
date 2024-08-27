@@ -29,10 +29,11 @@ pipeline {
             steps {
                 script {
                     // Python scripti ile raporu işleyip e-posta içeriği oluştur
-                    sh '''
+                    def currentTime = new Date(currentBuild.startTimeInMillis).format("yyyy-MM-dd HH:mm:ss")
+                    sh """
                         . .venv/bin/activate
-                        python process_report.py report.xml email_body.html
-                    '''
+                        python process_report.py report.xml email_body.html --current-time "${currentTime}"
+                    """
                 }
             }
         }
