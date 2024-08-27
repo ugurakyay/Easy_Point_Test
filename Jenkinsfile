@@ -34,6 +34,11 @@ pipeline {
 
             // Allure raporlarını yayınla
             allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
+
+            // Test raporlarını e-posta ile gönder
+            mail to: 'ugurakyay@gmail.com',
+                 subject: "Jenkins Build ${currentBuild.fullDisplayName}",
+                 body: "Jenkins build status: ${currentBuild.currentResult}\n\nFor more details, please check the Jenkins console output."
         }
     }
 }
