@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     triggers {
-        cron('H * * * *')  // Pipeline'ı her saat çalıştırmak için
+        cron('*/5 * * * *')  // Pipeline'ı her saat çalıştırmak için
     }
 
     stages {
