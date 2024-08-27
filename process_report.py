@@ -68,7 +68,7 @@ def generate_html_report(total_tests, passed_count, failed_count, skipped_count,
         </style>
     </head>
     <body>
-        <h1>Jenkins Build Status: SUCCESS</h1>
+        <h1>Jenkins Build Status: {"SUCCESS" if failed_count == 0 else "FAILURE"}</h1>
         <div class="summary">
             <p><strong>Total Tests:</strong> {total_tests}</p>
             <p><strong>Passed:</strong> {passed_count}</p>
