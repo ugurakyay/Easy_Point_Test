@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    triggers {
+        cron('H * * * *')  // Pipeline'ı her saat çalıştırmak için
+    }
+
     stages {
         stage('Clone Repository') {
             steps {
