@@ -92,7 +92,7 @@ def generate_html_report(total_tests, passed_count, failed_count, skipped_count,
     for test in failed_tests:
         html_content += f"<li>{test.attrib['classname']} - {test.attrib['name']}</li>"
 
-    html_content += """
+    html_content += f"""
             </ul>
         </div>
         <p class="timestamp">Report generated on: {current_time}</p>
