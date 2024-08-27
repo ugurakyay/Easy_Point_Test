@@ -1,9 +1,10 @@
 pipeline {
     agent any
 
-    triggers {
-        cron('*/5 * * * *')  // Pipeline'ı her 5 dakikada bir çalıştırmak için
-    }
+  triggers {
+    cron('0 9 * * 1-5')  // Pipeline'ı her sabah 09:00'da ve sadece hafta içi günlerde çalıştırmak için
+}
+
 
     stages {
         stage('Clone Repository') {
