@@ -49,214 +49,234 @@ def log_report(message):
         report_file.write(f"[{timestamp}] {message}\n")
 
 @pytest.mark.order(1)
-def test_successful_login_scenario(log_report):
-    log_report("Successful login test starts.")
+def test_successful_login_scenario():
+    log_report("1. Successful login test starts.")
     _test_successful_login()
-    log_report("Successful login test completed.")
+    log_report("1. Successful login test completed.")
 
 @pytest.mark.order(2)
-def test_wrong_password_login_scenario(log_report):
-    log_report("Wrong password login test starts.")
+def test_wrong_password_login_scenario():
+    log_report("2. Wrong password login test starts.")
     _test_wrong_password_login()
-    log_report("Wrong password login test completed.")
+    log_report("2. Wrong password login test completed.")
 
 @pytest.mark.order(3)
-def test_empty_username_login_scenario(log_report):
-    log_report("Empty username login test starts.")
+def test_empty_username_login_scenario():
+    log_report("3. Empty username login test starts.")
     _test_empty_username_login()
-    log_report("Empty username login test completed.")
+    log_report("3. Empty username login test completed.")
 
 @pytest.mark.order(4)
-def test_empty_password_login_scenario(log_report):
-    log_report("Empty password login test starts.")
+def test_empty_password_login_scenario():
+    log_report("4. Empty password login test starts.")
     _test_empty_password_login()
-    log_report("Empty password login test completed.")
+    log_report("4. Empty password login test completed.")
 
 @pytest.mark.order(5)
-def test_empty_username_password_login_scenario(log_report):
-    log_report("Empty username and password login test starts.")
+def test_empty_username_password_login_scenario():
+    log_report("5. Empty username and password login test starts.")
     _test_empty_username_password_login()
-    log_report("Empty username and password login test completed.")
+    log_report("5. Empty username and password login test completed.")
 
 @pytest.mark.order(6)
-def test_complete_order_scenario(log_report):
+def test_complete_order_scenario():
+    log_report("6. Complete Order scenario starts.")
     try:
         _execute_order()
-        log_report("Complete Order scenario completed successfully.")
+        log_report("6. Complete Order scenario completed successfully.")
     except Exception as e:
-        log_report(f"Complete Order test failed: {str(e)}")
-        pytest.fail(f"Complete Order test failed: {str(e)}")
+        log_report(f"6. Complete Order test failed: {str(e)}")
+        pytest.fail(f"6. Complete Order test failed: {str(e)}")
 
 @pytest.mark.order(7)
-def test_take_in_possession_scenario(log_report):
+def test_take_in_possession_scenario():
+    log_report("7. Take in possession scenario starts.")
     try:
         _test_take_in_possession()
-        log_report("Take in possession scenario completed successfully.")
+        log_report("7. Take in possession scenario completed successfully.")
     except Exception as e:
-        log_report(f"Take in possession test failed: {str(e)}")
-        pytest.fail(f"Take in possession test failed: {str(e)}")
+        log_report(f"7. Take in possession test failed: {str(e)}")
+        pytest.fail(f"7. Take in possession test failed: {str(e)}")
 
 @pytest.mark.order(8)
-def test_deliver_with_new_otp_scenario(log_report):
+def test_deliver_with_new_otp_scenario():
+    log_report("8. Deliver with new OTP scenario starts.")
     try:
         _test_deliver_with_new_otp()
-        log_report("Deliver with new OTP scenario completed successfully.")
+        log_report("8. Deliver with new OTP scenario completed successfully.")
     except Exception as e:
-        log_report(f"Deliver with new OTP test failed: {str(e)}")
-        pytest.fail(f"Deliver with new OTP test failed: {str(e)}")
+        log_report(f"8. Deliver with new OTP test failed: {str(e)}")
+        pytest.fail(f"8. Deliver with new OTP test failed: {str(e)}")
 
 @pytest.mark.order(9)
-def test_return_scenario(log_report):
+def test_return_scenario():
+    log_report("9. Return scenario starts.")
     try:
         _test_return_scenario()
-        log_report("Return scenario completed successfully.")
+        log_report("9. Return scenario completed successfully.")
     except Exception as e:
-        log_report(f"Return test failed: {str(e)}")
-        pytest.fail(f"Return test failed: {str(e)}")
+        log_report(f"9. Return test failed: {str(e)}")
+        pytest.fail(f"9. Return test failed: {str(e)}")
 
 @pytest.mark.order(10)
-def test_campaign_scenario(log_report):
+def test_campaign_scenario():
+    log_report("10. Campaign scenario starts.")
     try:
         _test_campaign_scenario()
-        log_report("Campaign scenario completed successfully.")
+        log_report("10. Campaign scenario completed successfully.")
     except Exception as e:
-        log_report(f"Campaign test failed: {str(e)}")
-        pytest.fail(f"Campaign test failed: {str(e)}")
+        log_report(f"10. Campaign test failed: {str(e)}")
+        pytest.fail(f"10. Campaign test failed: {str(e)}")
 
 @pytest.mark.order(11)
-def test_shipment_history_scenario(log_report):
+def test_shipment_history_scenario():
+    log_report("11. Shipment History scenario starts.")
     try:
         _test_shipment_history_scenario()
-        log_report("Shipment History scenario completed successfully.")
+        log_report("11. Shipment History scenario completed successfully.")
     except Exception as e:
-        log_report(f"Shipment History test failed: {str(e)}")
-        pytest.fail(f"Shipment History test failed: {str(e)}")
+        log_report(f"11. Shipment History test failed: {str(e)}")
+        pytest.fail(f"11. Shipment History test failed: {str(e)}")
 
 @pytest.mark.order(12)
-def test_update_profile_scenario(log_report):
+def test_update_profile_scenario():
+    log_report("12. Update Profile scenario starts.")
     try:
         _test_update_profile_scenario()
-        log_report("Update Profile scenario completed successfully.")
+        log_report("12. Update Profile scenario completed successfully.")
     except Exception as e:
-        log_report(f"Update Profile test failed: {str(e)}")
-        pytest.fail(f"Update Profile test failed: {str(e)}")
+        log_report(f"12. Update Profile test failed: {str(e)}")
+        pytest.fail(f"12. Update Profile test failed: {str(e)}")
 
 @pytest.mark.order(13)
-def test_view_profile_scenario(log_report):
+def test_view_profile_scenario():
+    log_report("13. View Profile scenario starts.")
     try:
         _test_user_profile_scenario()
-        log_report("View Profile scenario completed successfully.")
+        log_report("13. View Profile scenario completed successfully.")
     except Exception as e:
-        log_report(f"View Profile test failed: {str(e)}")
-        pytest.fail(f"View Profile test failed: {str(e)}")
+        log_report(f"13. View Profile test failed: {str(e)}")
+        pytest.fail(f"13. View Profile test failed: {str(e)}")
 
 @pytest.mark.order(14)
-def test_technical_support_scenario(log_report):
+def test_technical_support_scenario():
+    log_report("14. Technical Support scenario starts.")
     try:
         _test_technical_support_scenario()
-        log_report("Technical Support scenario completed successfully.")
+        log_report("14. Technical Support scenario completed successfully.")
     except Exception as e:
-        log_report(f"Technical Support test failed: {str(e)}")
-        pytest.fail(f"Technical Support test failed: {str(e)}")
+        log_report(f"14. Technical Support test failed: {str(e)}")
+        pytest.fail(f"14. Technical Support test failed: {str(e)}")
 
 @pytest.mark.order(15)
-def test_fetch_posts_scenario(log_report):
+def test_fetch_posts_scenario():
+    log_report("15. Fetch Posts scenario starts.")
     try:
         _test_fetch_posts_scenario()
-        log_report("Fetch Posts scenario completed successfully.")
+        log_report("15. Fetch Posts scenario completed successfully.")
     except Exception as e:
-        log_report(f"Fetch Posts test failed: {str(e)}")
-        pytest.fail(f"Fetch Posts test failed: {str(e)}")
+        log_report(f"15. Fetch Posts test failed: {str(e)}")
+        pytest.fail(f"15. Fetch Posts test failed: {str(e)}")
 
 @pytest.mark.order(16)
-def test_get_posts_scenario(log_report):
+def test_get_posts_scenario():
+    log_report("16. Get Posts with takenName scenario starts.")
     try:
         _test_get_posts_scenario()
-        log_report("Get Posts with takenName scenario completed successfully.")
+        log_report("16. Get Posts with takenName scenario completed successfully.")
     except Exception as e:
-        log_report(f"Get Posts with takenName test failed: {str(e)}")
-        pytest.fail(f"Get Posts with takenName test failed: {str(e)}")
+        log_report(f"16. Get Posts with takenName test failed: {str(e)}")
+        pytest.fail(f"16. Get Posts with takenName test failed: {str(e)}")
 
 
 # Negative tests
 
 @pytest.mark.order(17)
-def test_invalid_campaign_with_invalid_token_scenario(log_report):
+def test_invalid_campaign_with_invalid_token_scenario():
+    log_report("17. Invalid Campaign with Invalid Token scenario starts.")
     try:
         _test_invalid_campaign_with_invalid_token()
-        log_report("Invalid Campaign with Invalid Token scenario completed.")
+        log_report("17. Invalid Campaign with Invalid Token scenario completed.")
     except Exception as e:
-        log_report(f"Invalid Campaign with Invalid Token test failed: {str(e)}")
-        pytest.fail(f"Invalid Campaign with Invalid Token test failed: {str(e)}")
+        log_report(f"17. Invalid Campaign with Invalid Token test failed: {str(e)}")
+        pytest.fail(f"17. Invalid Campaign with Invalid Token test failed: {str(e)}")
 
 @pytest.mark.order(18)
-def test_invalid_campaign_with_empty_token_scenario(log_report):
+def test_invalid_campaign_with_empty_token_scenario():
+    log_report("18. Invalid Campaign with Empty Token scenario starts.")
     try:
         _test_invalid_campaign_with_empty_token()
-        log_report("Invalid Campaign with Empty Token scenario completed.")
+        log_report("18. Invalid Campaign with Empty Token scenario completed.")
     except Exception as e:
-        log_report(f"Invalid Campaign with Empty Token test failed: {str(e)}")
-        pytest.fail(f"Invalid Campaign with Empty Token test failed: {str(e)}")
+        log_report(f"18. Invalid Campaign with Empty Token test failed: {str(e)}")
+        pytest.fail(f"18. Invalid Campaign with Empty Token test failed: {str(e)}")
 
 @pytest.mark.order(19)
-def test_invalid_campaign_with_invalid_campaign_id_scenario(log_report):
+def test_invalid_campaign_with_invalid_campaign_id_scenario():
+    log_report("19. Invalid Campaign with Invalid Campaign ID scenario starts.")
     try:
         _test_invalid_campaign_with_invalid_campaign_id()
-        log_report("Invalid Campaign with Invalid Campaign ID scenario completed.")
+        log_report("19. Invalid Campaign with Invalid Campaign ID scenario completed.")
     except Exception as e:
-        log_report(f"Invalid Campaign with Invalid Campaign ID test failed: {str(e)}")
-        pytest.fail(f"Invalid Campaign with Invalid Campaign ID test failed: {str(e)}")
+        log_report(f"19. Invalid Campaign with Invalid Campaign ID test failed: {str(e)}")
+        pytest.fail(f"19. Invalid Campaign with Invalid Campaign ID test failed: {str(e)}")
 
 @pytest.mark.order(20)
-def test_invalid_complete_order_with_invalid_otp_scenario(log_report):
+def test_invalid_complete_order_with_invalid_otp_scenario():
+    log_report("20. Invalid Complete Order with Invalid OTP scenario starts.")
     try:
         _test_invalid_complete_order_with_invalid_otp()
-        log_report("Invalid Complete Order with Invalid OTP scenario completed.")
+        log_report("20. Invalid Complete Order with Invalid OTP scenario completed.")
     except Exception as e:
-        log_report(f"Invalid Complete Order with Invalid OTP test failed: {str(e)}")
-        pytest.fail(f"Invalid Complete Order with Invalid OTP test failed: {str(e)}")
+        log_report(f"20. Invalid Complete Order with Invalid OTP test failed: {str(e)}")
+        pytest.fail(f"20. Invalid Complete Order with Invalid OTP test failed: {str(e)}")
 
 @pytest.mark.order(21)
-def test_invalid_complete_order_with_empty_otp_scenario(log_report):
+def test_invalid_complete_order_with_empty_otp_scenario():
+    log_report("21. Invalid Complete Order with Empty OTP scenario starts.")
     try:
         _test_invalid_complete_order_with_empty_otp()
-        log_report("Invalid Complete Order with Empty OTP scenario completed.")
+        log_report("21. Invalid Complete Order with Empty OTP scenario completed.")
     except Exception as e:
-        log_report(f"Invalid Complete Order with Empty OTP test failed: {str(e)}")
-        pytest.fail(f"Invalid Complete Order with Empty OTP test failed: {str(e)}")
+        log_report(f"21. Invalid Complete Order with Empty OTP test failed: {str(e)}")
+        pytest.fail(f"21. Invalid Complete Order with Empty OTP test failed: {str(e)}")
 
 @pytest.mark.order(22)
-def test_invalid_complete_order_with_invalid_post_id_scenario(log_report):
+def test_invalid_complete_order_with_invalid_post_id_scenario():
+    log_report("22. Invalid Complete Order with Invalid Post ID scenario starts.")
     try:
         _test_invalid_complete_order_with_invalid_post_id()
-        log_report("Invalid Complete Order with Invalid Post ID scenario completed.")
+        log_report("22. Invalid Complete Order with Invalid Post ID scenario completed.")
     except Exception as e:
-        log_report(f"Invalid Complete Order with Invalid Post ID test failed: {str(e)}")
-        pytest.fail(f"Invalid Complete Order with Invalid Post ID test failed: {str(e)}")
+        log_report(f"22. Invalid Complete Order with Invalid Post ID test failed: {str(e)}")
+        pytest.fail(f"22. Invalid Complete Order with Invalid Post ID test failed: {str(e)}")
 
 @pytest.mark.order(23)
-def test_invalid_fetch_posts_with_invalid_token_scenario(log_report):
+def test_invalid_fetch_posts_with_invalid_token_scenario():
+    log_report("23. Invalid Fetch Posts with Invalid Token scenario starts.")
     try:
         _test_invalid_fetch_posts_with_invalid_token()
-        log_report("Invalid Fetch Posts with Invalid Token scenario completed.")
+        log_report("23. Invalid Fetch Posts with Invalid Token scenario completed.")
     except Exception as e:
-        log_report(f"Invalid Fetch Posts with Invalid Token test failed: {str(e)}")
-        pytest.fail(f"Invalid Fetch Posts with Invalid Token test failed: {str(e)}")
+        log_report(f"23. Invalid Fetch Posts with Invalid Token test failed: {str(e)}")
+        pytest.fail(f"23. Invalid Fetch Posts with Invalid Token test failed: {str(e)}")
 
 @pytest.mark.order(24)
-def test_invalid_fetch_posts_with_empty_token_scenario(log_report):
+def test_invalid_fetch_posts_with_empty_token_scenario():
+    log_report("24. Invalid Fetch Posts with Empty Token scenario starts.")
     try:
         _test_invalid_fetch_posts_with_empty_token()
-        log_report("Invalid Fetch Posts with Empty Token scenario completed.")
+        log_report("24. Invalid Fetch Posts with Empty Token scenario completed.")
     except Exception as e:
-        log_report(f"Invalid Fetch Posts with Empty Token test failed: {str(e)}")
-        pytest.fail(f"Invalid Fetch Posts with Empty Token test failed: {str(e)}")
+        log_report(f"24. Invalid Fetch Posts with Empty Token test failed: {str(e)}")
+        pytest.fail(f"24. Invalid Fetch Posts with Empty Token test failed: {str(e)}")
 
 @pytest.mark.order(25)
-def test_invalid_fetch_posts_with_invalid_parameters_scenario(log_report):
+def test_invalid_fetch_posts_with_invalid_parameters_scenario():
+    log_report("25. Invalid Fetch Posts with Invalid Parameters scenario starts.")
     try:
         _test_invalid_fetch_posts_with_invalid_parameters()
-        log_report("Invalid Fetch Posts with Invalid Parameters scenario completed.")
+        log_report("25. Invalid Fetch Posts with Invalid Parameters scenario completed.")
     except Exception as e:
-        log_report(f"Invalid Fetch Posts with Invalid Parameters test failed: {str(e)}")
-        pytest.fail(f"Invalid Fetch Posts with Invalid Parameters test failed: {str(e)}")
+        log_report(f"25. Invalid Fetch Posts with Invalid Parameters test failed: {str(e)}")
+        pytest.fail(f"25. Invalid Fetch Posts with Invalid Parameters test failed: {str(e)}")
