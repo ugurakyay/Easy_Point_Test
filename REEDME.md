@@ -36,11 +36,7 @@ Bu proje, kullanıcı kimlik doğrulama, gönderi yönetimi ve iade işlemlerini
    ```bash
    git clone https://github.com/ugurakyay/Easy_Point_Test
 
-
-
-Sanal Ortam Oluşturun:
-python3 -m venv .venv
-source .venv/bin/activate
+   
 
 2. **Sanal Ortam Oluştur**:
 
