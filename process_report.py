@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import sys
 from datetime import datetime
+import os
 
 def parse_test_report(xml_file):
     tree = ET.parse(xml_file)
@@ -18,7 +19,7 @@ def parse_test_report(xml_file):
 
     return total_tests, passed_count, failed_count, skipped_count, failed_tests
 
-def generate_html_report(total_tests, passed_count, failed_count, skipped_count, failed_tests):
+def generate_html_report(total_tests, passed_count, failed_count, skipped_count, failed_tests, jenkins_url, build_number):
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     html_content = f"""
@@ -97,6 +98,7 @@ def generate_html_report(total_tests, passed_count, failed_count, skipped_count,
         </div>
         <p class="timestamp">Report generated on: {current_time}</p>
         <p>For more details, please check the Jenkins console output.</p>
+        <p><a href="{jenkins_url}/job/esnafAPI_Automation/{build_number}/">View Jenkins Build Details</a></p>
     </body>
     </html>
     """
@@ -107,9 +109,13 @@ if __name__ == "__main__":
     xml_file = sys.argv[1]
     output_file = sys.argv[2]
 
+    # Jenkins URL and build number
+    jenkins_url = os.environ.get('JENKINS_URL', 'http://localhost:8080')
+    build_number = os.environ.get('BUILD_NUMBER', 'unknown')
+
     total_tests, passed_count, failed_count, skipped_count, failed_tests = parse_test_report(xml_file)
 
-    report_html = generate_html_report(total_tests, passed_count, failed_count, skipped_count, failed_tests)
+    report_html = generate_html_report(total_tests, passed_count, failed_count, skipped_count, failed_tests, jenkins_url, build_number)
 
     with open(output_file, 'w') as f:
         f.write(report_html)
