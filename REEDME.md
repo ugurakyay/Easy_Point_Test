@@ -59,13 +59,21 @@ source .venv/bin/activate
 Proje aşağıdaki senaryoları kapsamaktadır:
 
 Başarılı Giriş: Geçerli kimlik bilgileriyle başarılı bir giriş testi.
+
 Yanlış Şifre ile Giriş: Yanlış şifre ile giriş testi.
+
 Boş Kullanıcı Adı ile Giriş: Kullanıcı adı alanı boşken giriş testi.
+
 Boş Şifre ile Giriş: Şifre alanı boşken giriş testi.
+
 Hem Kullanıcı Adı Hem de Şifre Boşken Giriş: Her iki alanın da boş olduğu durumdaki giriş testi.
+
 Siparişi Tamamlama: Giriş yapar, gönderileri alır ve belirli bir gönderi kimliği ve OTP kullanarak bir siparişi tamamlar.
+
 Teslim Alma: Bir öğeyi teslim alma senaryosunu simüle eder.
+
 Yeni OTP ile Teslimat: Yeni oluşturulan bir OTP ile teslimat sürecini test eder.
+
 İade İşlemi: Giriş yapar, bir gönderiyi iade durumuyla alır ve iade işlemini tamamlar.
 
 ### Testlerin Çalıştırılması
