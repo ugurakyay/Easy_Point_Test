@@ -1,84 +1,79 @@
 # API Test Automation Project
 
-This project contains a set of automated API tests for a system that includes user authentication, post management, and return processes. The tests are written in Python using `pytest` and `requests`, and they include scenarios for logging in, completing orders, handling returns, and more.
+Bu proje, kullanıcı kimlik doğrulama, gönderi yönetimi ve iade işlemlerini içeren bir sistem için otomatikleştirilmiş API testleri içerir. Testler, `pytest` ve `requests` kullanılarak Python'da yazılmıştır ve giriş yapma, sipariş tamamlama, iadeleri ele alma gibi senaryoları içerir.
 
-## Project Structure
+## Proje Yapısı
 
-- **config.py**: Contains configuration settings like API URLs, credentials, and the path to the report file.
-- **conftest.py**: Defines fixtures and global setup/teardown logic for the tests, including report initialization.
-- **test_successful_login.py**: Contains the test for a successful login scenario.
-- **test_wrong_password_login.py**: Contains the test for login with a wrong password.
-- **test_empty_username_login.py**: Contains the test for login with an empty username.
-- **test_empty_password_login.py**: Contains the test for login with an empty password.
-- **test_empty_username_password_login.py**: Contains the test for login with both username and password empty.
-- **test_complete_order.py**: Contains the test for completing an order.
-- **test_take_in_possession.py**: Contains the test for taking an item into possession.
-- **deliver_with_new_otp.py**: Contains the test for delivering an item with a new OTP.
-- **test_return.py**: Contains the test for handling return scenarios.
-- **test_.py**: The main test runner that aggregates all the individual test scenarios and generates the `report.html`.
+- **config.py**: API URL'leri, kimlik bilgileri ve rapor dosyasının yolu gibi yapılandırma ayarlarını içerir.
+- **conftest.py**: Testler için fixture'lar ve genel kurulum/teardown mantığını tanımlar, rapor başlatma dahil.
+- **test_successful_login.py**: Başarılı bir giriş senaryosu için testi içerir.
+- **test_wrong_password_login.py**: Yanlış şifre ile giriş testi içerir.
+- **test_empty_username_login.py**: Boş kullanıcı adı ile giriş testi içerir.
+- **test_empty_password_login.py**: Boş şifre ile giriş testi içerir.
+- **test_empty_username_password_login.py**: Hem kullanıcı adı hem de şifrenin boş olduğu durumda giriş testi içerir.
+- **test_complete_order.py**: Siparişi tamamlama testi içerir.
+- **test_take_in_possession.py**: Bir öğeyi teslim alma senaryosunu içerir.
+- **deliver_with_new_otp.py**: Yeni bir OTP ile teslimat testi içerir.
+- **test_return.py**: İade senaryolarını ele alma testi içerir.
+- **test_.py**: Tüm test senaryolarını bir araya getiren ve `report.html` dosyasını oluşturan ana test yürütücü.
 
-## Prerequisites
+## Gereksinimler
 
 - Python 3.9+
-- `pip` (Python package installer)
+- `pip` (Python paket yöneticisi)
 
-### Python Packages
+### Python Paketleri
 
-- `requests`: For making HTTP requests.
-- `pytest`: For running the tests.
-- `pytest-html`: For generating HTML test reports.
-- `pytest-order`: For ordering the test execution.
+- `requests`: HTTP istekleri yapmak için.
+- `pytest`: Testleri çalıştırmak için.
+- `pytest-html`: HTML test raporları oluşturmak için.
+- `pytest-order`: Test yürütme sırasını belirlemek için.
 
-## Installation
+## Kurulum
 
-1. **Clone the repository**:
+1. **Depoyu Klonlayın**:
 
    ```bash
-   git clone https://github.com/your-repository/api-automation.git
-   cd api-automation
+   git clone https://github.com/ugurakyay/Easy_Point_Test
 
 
-Create a virtual environment:
+
+Sanal Ortam Oluşturun:
 python3 -m venv .venv
 source .venv/bin/activate
 
+2. **Sanal Ortam Oluştur**:
 
-Install the required packages:
-pip install -r requirements.txt
-
-
-Running the Tests
-pytest
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
 
 
-Run a specific test
+3. **Gerekli Paketler**:
 
-pytest -k test_successful_login
+   ```bash
+ 
+   pip install -r requirements.txt
 
+### Test Senaryoları
+Proje aşağıdaki senaryoları kapsamaktadır:
 
-Test Scenarios
-The project covers the following scenarios:
+Başarılı Giriş: Geçerli kimlik bilgileriyle başarılı bir giriş testi.
+Yanlış Şifre ile Giriş: Yanlış şifre ile giriş testi.
+Boş Kullanıcı Adı ile Giriş: Kullanıcı adı alanı boşken giriş testi.
+Boş Şifre ile Giriş: Şifre alanı boşken giriş testi.
+Hem Kullanıcı Adı Hem de Şifre Boşken Giriş: Her iki alanın da boş olduğu durumdaki giriş testi.
+Siparişi Tamamlama: Giriş yapar, gönderileri alır ve belirli bir gönderi kimliği ve OTP kullanarak bir siparişi tamamlar.
+Teslim Alma: Bir öğeyi teslim alma senaryosunu simüle eder.
+Yeni OTP ile Teslimat: Yeni oluşturulan bir OTP ile teslimat sürecini test eder.
+İade İşlemi: Giriş yapar, bir gönderiyi iade durumuyla alır ve iade işlemini tamamlar.
 
-Successful Login: Tests a successful login with valid credentials.
-Login with Wrong Password: Tests login with an incorrect password.
-Login with Empty Username: Tests login with an empty username field.
-Login with Empty Password: Tests login with an empty password field.
-Login with Both Username and Password Empty: Tests login with both fields empty.
-Complete Order: Logs in, fetches posts, and completes an order using a specific post ID and OTP.
-Take in Possession: Simulates taking an item into possession.
-Deliver with New OTP: Tests the delivery process with a newly generated OTP.
-Return Process: Logs in, fetches a post with a return status, and completes the return process.
+### Testlerin Çalıştırılması
 
+**Testleri çalıştırmak**:
 
-
-
-### Explanation
-
-- **Installation**: Provides steps to set up the project and install dependencies.
-- **Test Scenarios**: Describes each test scenario briefly.
-- **Running the Tests**: Explains how to execute tests and generate reports.
-- **Project Structure**: Outlines the structure of the project, making it easier for contributors or users to understand.
-- **Contribution Guidelines**: Encourages contributions and provides guidelines.
-
-You can customize this `README.md` further to match your project's specific needs.
+   ```bash
+   pytest
+   
+   pytest -k test_successful_login
 
