@@ -1,10 +1,9 @@
 pipeline {
     agent any
 
-  triggers {
-    cron('0 9 * * 1-5')  // Pipeline'ı her sabah 09:00'da ve sadece hafta içi günlerde çalıştırmak için
-}
-
+    triggers {
+        cron('0 9 * * 1-5')  // Pipeline'ı her sabah 09:00'da ve sadece hafta içi günlerde çalıştırmak için
+    }
 
     stages {
         stage('Clone Repository') {
@@ -23,7 +22,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 // Testleri çalıştır ve Allure raporu oluştur
-                sh '. .venv/bin/activate && pytest --alluredir=allure-results --junitxml=report.xml'
+                sh 'set -e && . .venv/bin/activate && pytest --allure-no-capture --alluredir=allure-results --junitxml=report.xml'
             }
         }
         stage('Process Test Results') {
@@ -51,6 +50,13 @@ pipeline {
             // E-posta gönder
             mail to: 'ugurakyay@gmail.com',
                  subject: "Jenkins Build ${currentBuild.fullDisplayName}",
+                 mimeType: 'text/html',
+                 body: readFile('email_body.html')
+        }
+        failure {
+            // Hatalı test durumunda e-posta gönder
+            mail to: 'ugurakyay@gmail.com',
+                 subject: "Jenkins Build ${currentBuild.fullDisplayName} - FAILED",
                  mimeType: 'text/html',
                  body: readFile('email_body.html')
         }
