@@ -4,7 +4,7 @@ import allure
 from conftest import REPORT_FILE_PATH
 
 # Import all modules
-from test_successful_login import successful_login as _test_successful_login
+from test_successfuL_login import successful_login as _test_successful_login
 from test_wrong_password_login import wrong_password_login as _test_wrong_password_login
 from test_empty_username_login import empty_username_login as _test_empty_username_login
 from test_empty_password_login import empty_password_login as _test_empty_password_login
