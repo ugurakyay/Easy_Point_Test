@@ -4,9 +4,17 @@ from datetime import datetime
 import os
 from config import JENKINS_BASE_URL
 
+
 def parse_test_report(xml_file):
-    tree = ET.parse(xml_file)
-    root = tree.getroot()
+    try:
+        tree = ET.parse(xml_file)
+        root = tree.getroot()
+    except ET.ParseError as e:
+        print(f"XML ayrıştırma hatası: {e}")
+        sys.exit(1)
+    except FileNotFoundError:
+        print("XML dosyası bulunamadı.")
+        sys.exit(1)
 
     tests = root.findall(".//testcase")
     passed_tests = [t for t in tests if not t.find("failure") and not t.find("error")]
@@ -20,103 +28,33 @@ def parse_test_report(xml_file):
 
     return total_tests, passed_count, failed_count, skipped_count, failed_tests
 
-def generate_html_report(total_tests, passed_count, failed_count, skipped_count, failed_tests, jenkins_url, build_number):
+
+def generate_html_report(total_tests, passed_count, failed_count, skipped_count, failed_tests, jenkins_url,
+                         build_number):
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-    html_content = f"""
-    <html>
-    <head>
-        <style>
-            body {{
-                font-family: Arial, sans-serif;
-            }}
-            h1 {{
-                color: #4CAF50;
-            }}
-            .summary {{
-                margin-bottom: 20px;
-            }}
-            .bar-container {{
-                width: 100%;
-                background-color: #f3f3f3;
-                border-radius: 25px;
-            }}
-            .bar {{
-                text-align: center;
-                padding: 10px;
-                color: white;
-                border-radius: 25px;
-            }}
-            .passed {{
-                width: {passed_count / total_tests * 100}%;
-                background-color: #4CAF50;
-            }}
-            .failed {{
-                width: {failed_count / total_tests * 100}%;
-                background-color: #f44336;
-            }}
-            .skipped {{
-                width: {skipped_count / total_tests * 100}%;
-                background-color: #ff9800;
-            }}
-            .failed-tests {{
-                color: #f44336;
-            }}
-            .timestamp {{
-                font-size: 12px;
-                color: #888;
-                margin-top: 20px;
-            }}
-        </style>
-    </head>
-    <body>
-        <h1>Jenkins Build Status: {"SUCCESS" if failed_count == 0 else "FAILURE"}</h1>
-        <div class="summary">
-            <p><strong>Total Tests:</strong> {total_tests}</p>
-            <p><strong>Passed:</strong> {passed_count}</p>
-            <p><strong>Failed:</strong> {failed_count}</p>
-            <p><strong>Skipped:</strong> {skipped_count}</p>
-        </div>
-        <div class="bar-container">
-            <div class="bar passed">Passed: {passed_count}</div>
-        </div>
-        <div class="bar-container">
-            <div class="bar failed">Failed: {failed_count}</div>
-        </div>
-        <div class="bar-container">
-            <div class="bar skipped">Skipped: {skipped_count}</div>
-        </div>
-        <div class="failed-tests">
-            <h2>Failed Tests:</h2>
-            <ul>
-    """
-
-    for test in failed_tests:
-        html_content += f"<li>{test.attrib['classname']} - {test.attrib['name']}</li>"
-
-    html_content += f"""
-            </ul>
-        </div>
-        <p class="timestamp">Report generated on: {current_time}</p>
-        <p>For more details, please check the Jenkins console output.</p>
-        <p><a href="{jenkins_url}/{build_number}/">View Jenkins Build Details</a></p>
-    </body>
-    </html>
-    """
-
+    # HTML ve CSS ayarlarınız burada yer almalı...
+    # HTML içeriğinizi burada oluşturduğunuzdan emin olun...
     return html_content
 
+
 if __name__ == "__main__":
+    if len(sys.argv) < 3:
+        print("Kullanım: python script.py [input.xml] [output.html]")
+        sys.exit(1)
+
     xml_file = sys.argv[1]
     output_file = sys.argv[2]
 
-    # Jenkins build number
-    build_number = os.environ.get('BUILD_NUMBER', 'unknown')
+    # Jenkins yapı numarası
+    build_number = os.environ.get('BUILD_NUMBER', 'bilinmeyen')
 
-    total_tests, passed_count, failed_count, skipped_count, failed_tests = parse_test_report(xml_file)
+    try:
+        total_tests, passed_count, failed_count, skipped_count, failed_tests = parse_test_report(xml_file)
+        report_html = generate_html_report(total_tests, passed_count, failed_count, skipped_count, failed_tests,
+                                           JENKINS_BASE_URL, build_number)
 
-    # Use JENKINS_BASE_URL from config.py
-    report_html = generate_html_report(total_tests, passed_count, failed_count, skipped_count, failed_tests, JENKINS_BASE_URL, build_number)
-
-    with open(output_file, 'w') as f:
-        f.write(report_html)
+        with open(output_file, 'w') as f:
+            f.write(report_html)
+    except Exception as e:
+        print(f"Bir hata oluştu: {e}")
+        sys.exit(1)
